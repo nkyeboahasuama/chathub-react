@@ -1,11 +1,14 @@
 import "./App.css";
 import Home from "./components/Home";
+import ChatContextProvider from "./contexts/ChatContext";
 import "./index.css";
 
 function App() {
   return (
     <div className="bg-sky-300 ">
-      <Home />
+      <ChatContextProvider>
+        <Home />
+      </ChatContextProvider>
     </div>
   );
 }
