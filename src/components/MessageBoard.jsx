@@ -1,5 +1,4 @@
 import React from "react";
-
 import Messages from "./Messages";
 import Input from "./Input";
 import MessageBoardNav from "./MessageBoardNav";
