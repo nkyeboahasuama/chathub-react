@@ -12,6 +12,8 @@ const Input = () => {
     handleSubmit(e);
     setInput("");
   };
+
+  // console.log("input render");
   const handleChange = (e) => {
     setInput(e.target.value);
   };
