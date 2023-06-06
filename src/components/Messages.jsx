@@ -15,7 +15,7 @@ const Messages = () => {
           {formattedDate}
         </div>
       </div>
-      <div className="px-2 flex flex-col gap-5 max-w-full">
+      <div className="flex flex-col gap-5 max-w-full">
         <Message />
       </div>
     </div>

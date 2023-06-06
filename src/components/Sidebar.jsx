@@ -6,7 +6,6 @@ import Chats from "./Chats";
 const Sidebar = () => {
   return (
     <div className="bg-white border-r-2 border-gray-400 flex-1 relative max-lg:hidden">
-      {/* change the max-sm to max-lg */}
       <div className="flex ">
         <Navbar />
       </div>

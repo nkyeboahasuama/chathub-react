@@ -6,20 +6,19 @@ import {
 import { IoCallOutline } from "react-icons/io5";
 import React, { useState, useEffect, useContext } from "react";
 import { ChatContext } from "../contexts/ChatContext";
+import Logout from "./auth/Logout";
 
 const MessageBoardNav = () => {
-  const { mes, userId } = useContext(ChatContext);
+  const { message, userId } = useContext(ChatContext);
   const [senderInfo, setSenderInfo] = useState();
 
   useEffect(() => {
-    const senderInfo = mes.filter((ms) => ms.senderId !== userId);
-    console.log(senderInfo);
+    const senderInfo = message.filter((ms) => ms.senderId !== userId);
     if (senderInfo) {
       setSenderInfo(senderInfo[senderInfo.length - 1]?.sender);
     }
-  }, [mes, userId]);
+  }, [message, userId]);
 
-  console.log(senderInfo);
   return (
     <div>
       <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-white border-b-2 border-gray-300">
@@ -44,9 +43,14 @@ const MessageBoardNav = () => {
           </div>
         </div>
         <div className="text-lg cursor-pointer flex gap-3">
-          <HiOutlineVideoCamera />
-          <IoCallOutline />
-          <HiOutlineDotsCircleHorizontal />
+          <div className="flex gap-3 max-md:hidden ">
+            <HiOutlineVideoCamera />
+            <IoCallOutline />
+            <HiOutlineDotsCircleHorizontal />
+          </div>
+          <div className="text-xs max-lg:block hidden hover:font-semibold">
+            <Logout />
+          </div>
         </div>
       </div>
     </div>
