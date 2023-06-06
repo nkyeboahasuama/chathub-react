@@ -14,7 +14,9 @@ const ChatContextProvider = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      socketRef.current = new WebSocket("ws://localhost:8000/ws/chat/");
+      socketRef.current = new WebSocket(
+        "wss://http://enkay.pythonanywhere.com//ws/chat/"
+      );
 
       socketRef.current.onopen = () => {
         console.log("Connected");
