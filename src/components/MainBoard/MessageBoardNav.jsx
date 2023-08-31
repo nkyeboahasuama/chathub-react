@@ -1,23 +1,26 @@
-import logo512 from "../images/logo512.png";
+import logo512 from "../../images/logo512.png";
 import {
   HiOutlineDotsCircleHorizontal,
   HiOutlineVideoCamera,
 } from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
 import React, { useState, useEffect, useContext } from "react";
-import { ChatContext } from "../contexts/ChatContext";
-import Logout from "./auth/Logout";
+import { ChatContext } from "../../contexts/ChatContext";
+import Logout from "../auth/Logout";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MessageBoardNav = () => {
-  const { message, userId } = useContext(ChatContext);
+  // const { message, userId } = useContext(ChatContext);
+  const { user } = useAuth0();
+  const message = ["jay", "bay"];
   const [senderInfo, setSenderInfo] = useState();
 
   useEffect(() => {
-    const senderInfo = message.filter((ms) => ms.senderId !== userId);
+    const senderInfo = message.filter((ms) => ms.senderId !== user);
     if (senderInfo) {
       setSenderInfo(senderInfo[senderInfo.length - 1]?.sender);
     }
-  }, [message, userId]);
+  }, [message, user]);
 
   return (
     <div>

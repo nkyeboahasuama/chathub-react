@@ -1,24 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getAuthState, setAuthState, clearAuthState } from "./AuthSession";
 
 const Login = () => {
-  const { isAuthenticated, user, isLoading, loginWithRedirect } = useAuth0();
-
-  useEffect(() => {
-    const storedAuthState = getAuthState();
-    if (storedAuthState) {
-      setAuthState(storedAuthState);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setAuthState({ isAuthenticated: true, user });
-    } else {
-      clearAuthState();
-    }
-  }, [isAuthenticated, user]);
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   return (
     !isAuthenticated &&

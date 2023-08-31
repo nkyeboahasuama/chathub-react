@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BiMessageRoundedDots } from "react-icons/bi";
-import { ChatContext } from "../contexts/ChatContext";
+import { ChatContext } from "../../contexts/ChatContext";
 
 const Chats = () => {
   const { message, userId } = useContext(ChatContext);
@@ -8,8 +8,10 @@ const Chats = () => {
   const [formattedMessage, setFormattedMessage] = useState("");
 
   useEffect(() => {
-    const filteredChat = message.filter((msg) => msg.senderId !== userId);
+    let filteredChat = message.filter((msg) => msg.senderId !== userId);
+
     if (filteredChat.length > 0) {
+      setUserObj("");
       setUserObj(filteredChat[filteredChat.length - 1]);
       setFormattedMessage(
         filteredChat[filteredChat.length - 1].message.slice(0, 10)
@@ -45,7 +47,7 @@ const Chats = () => {
               {userObj?.time.hour}:{userObj?.time.minute}
             </div>
             <div className="bg-red-600 text-white font-medium w-4 h-4 rounded-full text-xs flex items-center justify-center">
-              {message.filter((msg) => msg.sender !== userId).length}
+              {message.filter((msg) => msg.senderId !== userId).length}
             </div>
           </div>
         </div>
