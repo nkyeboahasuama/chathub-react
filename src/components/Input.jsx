@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { BsSend } from "react-icons/bs";
 import { IoAttachSharp } from "react-icons/io5";
 import { ChatContext } from "../contexts/ChatContext";
@@ -12,6 +12,7 @@ const Input = () => {
     handleSubmit(e);
     setInput("");
   };
+
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -30,6 +31,7 @@ const Input = () => {
           name="message"
           onChange={handleChange}
           value={input}
+          required
         />
         <div className="w-1/12 hover:text-xl">
           <BsSend />

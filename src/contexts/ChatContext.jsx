@@ -1,49 +1,70 @@
-import React, { createContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { createContext, useRef, useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const ChatContext = createContext();
 
 const ChatContextProvider = (props) => {
-  const [mes, setMes] = useState([]);
+  const { user, isAuthenticated } = useAuth0();
+  const [message, setMessage] = useState([]);
   const [userId, setUserId] = useState(null);
-  let socket = new WebSocket("ws://localhost:8000/ws/chat/");
+  const socketRef = useRef(null);
+  const currentDate = new Date();
+  const hour = currentDate.getHours();
+  const minute = currentDate.getMinutes();
 
   useEffect(() => {
-    socket.onopen = () => {
-      console.log("Connected");
-    };
+    if (isAuthenticated) {
+      socketRef.current = new WebSocket("ws://localhost:8000/ws/chat/");
 
-    socket.onmessage = (event) => {
-      let data = JSON.parse(event.data);
-      if (data.type === "user_id") {
-        setUserId(data.user_id);
-      } else {
-        setMes((prev) => [...prev, data]);
-      }
-    };
+      socketRef.current.onopen = () => {
+        console.log("Connected");
+      };
+
+      socketRef.current.onmessage = (event) => {
+        let data = JSON.parse(event.data);
+
+        if (data.type === "user_id") {
+          setUserId(data.user_id);
+        } else {
+          setMessage((prev) => [...prev, data]);
+        }
+      };
+
+      socketRef.current.onclose = () => {
+        console.log("closing");
+      };
+    }
 
     return () => {
-      socket.onclose = () => {
-        console.log("closed");
-      };
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
-  }, []);
+  }, [isAuthenticated, user]);
+
+  // console.log(userId);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let inputValue = event.target.elements.message.value;
+    const time = { hour: hour, minute: minute };
     const message = {
       message: inputValue,
-      sender: userId,
+      sender: user,
+      senderId: userId,
+      time: time,
     };
-    socket.send(JSON.stringify(message));
+    socketRef.current.send(JSON.stringify(message));
+    // console.log(userId);
   };
+  // console.log(message);
 
   return (
-    <ChatContext.Provider value={{ handleSubmit, userId, mes }}>
-      {props.children}
-    </ChatContext.Provider>
+    isAuthenticated && (
+      <ChatContext.Provider value={{ handleSubmit, userId, message }}>
+        {props.children}
+      </ChatContext.Provider>
+    )
   );
 };
 
