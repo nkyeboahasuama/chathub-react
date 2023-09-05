@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./components/MainBoard/Home";
+import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import ChatContextProvider from "./contexts/ChatContext";
 import "./index.css";

@@ -9,7 +9,7 @@ import { ChatContext } from "../../contexts/ChatContext";
 import Logout from "../auth/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const MessageBoardNav = () => {
+const MessageBoardNav = ({ setIsShow }) => {
   // const { message, userId } = useContext(ChatContext);
   const { user } = useAuth0();
   const message = ["jay", "bay"];
@@ -22,11 +22,21 @@ const MessageBoardNav = () => {
     }
   }, [message, user]);
 
+  const showSideBar = () => {
+    setIsShow(true);
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-white border-b-2 border-gray-300">
         <div className="flex items-center">
-          <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mr-2">
+          <div
+            className="max-sm:block hidden cursor-pointer"
+            onClick={showSideBar}
+          >
+            @
+          </div>
+          <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mx-2">
             {senderInfo ? (
               <img src={senderInfo.picture} alt="img" />
             ) : (
@@ -46,12 +56,12 @@ const MessageBoardNav = () => {
           </div>
         </div>
         <div className="text-lg cursor-pointer flex gap-3">
-          <div className="flex gap-3 max-md:hidden ">
+          <div className="flex gap-3 max-sm:hidden ">
             <HiOutlineVideoCamera />
             <IoCallOutline />
             <HiOutlineDotsCircleHorizontal />
           </div>
-          <div className="text-xs max-lg:block hidden hover:font-semibold">
+          <div className="text-xs max-sm:block hidden hover:font-semibold">
             <Logout />
           </div>
         </div>

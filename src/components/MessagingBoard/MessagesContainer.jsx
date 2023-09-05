@@ -1,5 +1,5 @@
 import React from "react";
-import Message from "./MainBoard/Message";
+import Message from "./Message";
 
 const Messages = () => {
   const currentDate = new Date();

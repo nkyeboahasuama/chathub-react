@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { db } from "../../config/firebase";
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+
+import useSubscription from "../hooks/useSubscription";
 
 const Message = () => {
   const { user } = useAuth0();
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    const messagesRef = collection(db, "messages");
-    const docQuery = query(messagesRef, orderBy("time", "asc"));
-    onSnapshot(docQuery, (snapshot) => {
-      let messagesArray = [];
-      snapshot.forEach((doc) => {
-        messagesArray.push({ ...doc.data(), id: doc.id });
-      });
-      setMessages(messagesArray);
-    });
-  }, []);
+  const { messages } = useSubscription();
 
   return (
     <div className="ml-2">
@@ -34,7 +22,7 @@ const Message = () => {
                       alt="img"
                     />
                   </div>
-                  <div className="flex max-w-1/4 flex-col items-end">
+                  <div className="flex max-w-1/2 flex-col items-end">
                     <div className="text-sm font-bold">You</div>
                     <div className="text-xs bg-white p-2 rounded-xl rounded-tr-none break-all">
                       {msg.text}
@@ -52,7 +40,7 @@ const Message = () => {
                       alt="img"
                     />
                   </div>
-                  <div className="flex flex-col justify-between max-w-1/4">
+                  <div className="flex flex-col justify-between max-w-1/2">
                     <div className="text-sm font-bold">
                       {msg?.user.given_name}
                     </div>

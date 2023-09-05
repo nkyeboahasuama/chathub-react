@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BsSend } from "react-icons/bs";
 import { IoAttachSharp } from "react-icons/io5";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -8,7 +8,7 @@ import { db } from "../../config/firebase";
 const Input = () => {
   const [input, setInput] = useState("");
   const inputRef = useRef();
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -18,7 +18,7 @@ const Input = () => {
     const messagesRef = collection(db, "messages");
     await addDoc(messagesRef, {
       text: input,
-      time: serverTimestamp(),
+      createdAt: serverTimestamp(),
       user: user,
     });
   };
@@ -46,7 +46,7 @@ const Input = () => {
           placeholder="Text here..."
           type="text"
           name="message"
-          // onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           value={input}
           required
           ref={inputRef}

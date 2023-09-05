@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../Navbar";
+import Navbar from "./ChatsNavbar";
 import UserProfile from "./UserProfile";
 import Chats from "./Chats";
 
@@ -9,7 +9,9 @@ const Sidebar = () => {
       <div className="flex ">
         <Navbar />
       </div>
-      <div className="bg-gray-100 h-full">{/* <Chats /> */}</div>
+      <div className="bg-gray-100 h-full">
+        <Chats />
+      </div>
       <div className="bg-white h-14 w-full absolute bottom-0">
         <UserProfile />
       </div>

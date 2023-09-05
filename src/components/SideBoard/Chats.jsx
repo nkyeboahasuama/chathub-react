@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { BiMessageRoundedDots } from "react-icons/bi";
-import { ChatContext } from "../../contexts/ChatContext";
+import useSubscription from "../hooks/useSubscription";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 const Chats = () => {
-  const { message, userId } = useContext(ChatContext);
-  const [userObj, setUserObj] = useState("");
-  const [formattedMessage, setFormattedMessage] = useState("");
+  // const { user } = useAuth0();
 
-  useEffect(() => {
-    let filteredChat = message.filter((msg) => msg.senderId !== userId);
+  const { messages } = useSubscription();
 
-    if (filteredChat.length > 0) {
-      setUserObj("");
-      setUserObj(filteredChat[filteredChat.length - 1]);
-      setFormattedMessage(
-        filteredChat[filteredChat.length - 1].message.slice(0, 10)
-      );
-    }
-  }, [message, userId]);
+  const info = messages[messages.length - 1];
+
+  console.log("see");
+  // if (info) {
+  //   const timestamp = info?.createdAt.toDate();
+  //   const formattedDate = timestamp.toLocaleString();
+  //   console.log(formattedDate);
+  //   return;
+  // }
 
   return (
     <div>
@@ -27,27 +26,28 @@ const Chats = () => {
         </div>
         <div>All messages</div>
       </div>
-      {userObj && (
+      {info && (
         <div className="flex justify-between py-3 px-2 hover:bg-white cursor-pointer items-center border-b-2 border-gray-300">
           <div className="flex items-center">
             <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mr-2">
-              <img src={userObj.sender.picture} alt="img" />
+              <img src={info.user.picture} alt="img" />
             </div>
             <div className="flex flex-col justify-between">
               <div className="text-sm font-bold">
-                {userObj.sender.name.length > 20
-                  ? userObj?.sender.name.slice(0, 15) + "..."
-                  : userObj.sender.name}
+                {info.user.name.length > 20
+                  ? info?.user.name.slice(0, 15) + "..."
+                  : info.user.name}
               </div>
-              <div className="text-xs">{formattedMessage}</div>
+              <div className="text-xs">{info?.text}</div>
             </div>
           </div>
           <div className="flex flex-col items-end justify-between">
             <div className="text-xs">
-              {userObj?.time.hour}:{userObj?.time.minute}
+              {/* {userObj?.time.hour}:{userObj?.time.minute} */}
+              {/* {info.createdAt} */}
             </div>
             <div className="bg-red-600 text-white font-medium w-4 h-4 rounded-full text-xs flex items-center justify-center">
-              {message.filter((msg) => msg.senderId !== userId).length}
+              {messages.length}
             </div>
           </div>
         </div>
