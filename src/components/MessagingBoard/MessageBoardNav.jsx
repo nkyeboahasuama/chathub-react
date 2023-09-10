@@ -4,8 +4,7 @@ import {
   HiOutlineVideoCamera,
 } from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
-import React, { useState, useEffect, useContext } from "react";
-import { ChatContext } from "../../contexts/ChatContext";
+import React, { useState, useEffect } from "react";
 import Logout from "../auth/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -20,7 +19,7 @@ const MessageBoardNav = ({ setIsShow }) => {
     if (senderInfo) {
       setSenderInfo(senderInfo[senderInfo.length - 1]?.sender);
     }
-  }, [message, user]);
+  }, [user]);
 
   const showSideBar = () => {
     setIsShow(true);

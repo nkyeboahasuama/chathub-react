@@ -1,9 +1,26 @@
 import React from "react";
+import useSubscription from "./hooks/useSubscription";
+import { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ChatsModal = ({ setIsShow }) => {
+  const [info, setInfo] = useState([]);
+  const { user } = useAuth0();
+  const { messages } = useSubscription();
+
+  useEffect(() => {
+    const recentUser = () => {
+      const filtered = messages.filter((dev) => dev.user.email !== user.email);
+      const recentRecievedChat = filtered[filtered.length - 1];
+      setInfo(recentRecievedChat);
+    };
+    recentUser();
+  }, [messages]);
+
   const closeChatsModal = () => {
     setIsShow(false);
   };
+
   return (
     <div className="bg-white h-4/6 w-full absolute top-0 left-0 z-10 opacity-90">
       <div className="flex justify-end">
@@ -14,30 +31,32 @@ const ChatsModal = ({ setIsShow }) => {
           Close
         </div>
       </div>
-      <div className="flex justify-between py-3 px-2 hover:bg-white cursor-pointer items-center border-b-2 border-gray-300">
-        <div className="flex items-center">
-          <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mr-2">
-            {/* <img src={info.user.picture} alt="img" /> */}
-          </div>
-          <div className="flex flex-col justify-between">
-            <div className="text-sm font-bold">
-              {/* {info.user.name.length > 20
-                  ? info?.user.name.slice(0, 15) + "..."
-                  : info.user.name} */}
+      {info && info.user && (
+        <div className="flex justify-between py-3 px-2 bg-slate-300 hover:bg-slate-200 cursor-pointer items-center border-b-2 border-gray-400">
+          <div className="flex items-center">
+            <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mr-2">
+              <img src={info?.user.picture} alt="img" />
             </div>
-            <div className="text-xs">{/* {info?.text} */}</div>
+            <div className="flex flex-col justify-between">
+              <div className="text-sm font-bold">
+                {info?.user.name.length > 20
+                  ? info?.user.name.slice(0, 15) + "..."
+                  : info?.user.name}
+              </div>
+              <div className="text-xs">{info?.text}</div>
+            </div>
+          </div>
+          <div className="flex flex-col items-end justify-between">
+            <div className="text-xs">
+              {/* {userObj?.time.hour}:{userObj?.time.minute} */}
+              {/* {info?.createdAt} */}
+            </div>
+            <div className="bg-red-600 text-white font-medium w-4 h-4 rounded-full text-xs flex items-center justify-center">
+              {/* {messages.length} */}
+            </div>
           </div>
         </div>
-        <div className="flex flex-col items-end justify-between">
-          <div className="text-xs">
-            {/* {userObj?.time.hour}:{userObj?.time.minute} */}
-            {/* {info.createdAt} */}
-          </div>
-          <div className="bg-red-600 text-white font-medium w-4 h-4 rounded-full text-xs flex items-center justify-center">
-            {/* {messages.length} */}
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
