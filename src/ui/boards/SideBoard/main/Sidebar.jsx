@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "./Navbar";
-import UserProfile from "./UserProfile";
-import Chats from "./Chats";
+import Navbar from "../components/ChatsNavbar";
+import UserProfile from "../components/UserProfile";
+import Chats from "../components/Chats";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white border-r-2 border-gray-400 flex-1 relative max-lg:hidden">
+    <div className="bg-white border-r-2 border-gray-400 flex-1 relative max-sm:hidden">
       <div className="flex ">
         <Navbar />
       </div>

@@ -1,38 +1,40 @@
-import logo512 from "../images/logo512.png";
+import logo512 from "../../../shared/assets/logo512.png";
 import {
   HiOutlineDotsCircleHorizontal,
   HiOutlineVideoCamera,
 } from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
-import React, { useState, useEffect, useContext } from "react";
-import { ChatContext } from "../contexts/ChatContext";
-import Logout from "./auth/Logout";
+import React from "react";
+import Logout from "../../../../auth/Logout";
+import { useRecentUserInfo } from "../../../shared/hooks/useRecentUserInfo";
 
-const MessageBoardNav = () => {
-  const { message, userId } = useContext(ChatContext);
-  const [senderInfo, setSenderInfo] = useState();
+const MessageBoardNav = ({ setIsShow }) => {
+  const { recentUserInfo: senderInfo } = useRecentUserInfo();
 
-  useEffect(() => {
-    const senderInfo = message.filter((ms) => ms.senderId !== userId);
-    if (senderInfo) {
-      setSenderInfo(senderInfo[senderInfo.length - 1]?.sender);
-    }
-  }, [message, userId]);
+  const showSideBar = () => {
+    setIsShow(true);
+  };
 
   return (
     <div>
       <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-white border-b-2 border-gray-300">
         <div className="flex items-center">
-          <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mr-2">
+          <div
+            className="max-sm:block hidden cursor-pointer"
+            onClick={showSideBar}
+          >
+            @
+          </div>
+          <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mx-2">
             {senderInfo ? (
-              <img src={senderInfo.picture} alt="img" />
+              <img src={senderInfo?.user?.profilePic} alt="img" />
             ) : (
               <img src={logo512} alt="img" />
             )}
           </div>
           <div className="flex flex-col justify-between">
             {senderInfo ? (
-              <div className="text-sm font-bold">{senderInfo.name}</div>
+              <div className="text-sm font-bold">{senderInfo?.user?.name}</div>
             ) : (
               <div className="text-sm font-bold">Connect User</div>
             )}
@@ -43,12 +45,12 @@ const MessageBoardNav = () => {
           </div>
         </div>
         <div className="text-lg cursor-pointer flex gap-3">
-          <div className="flex gap-3 max-md:hidden ">
+          <div className="flex gap-3 max-sm:hidden ">
             <HiOutlineVideoCamera />
             <IoCallOutline />
             <HiOutlineDotsCircleHorizontal />
           </div>
-          <div className="text-xs max-lg:block hidden hover:font-semibold">
+          <div className="text-xs max-sm:block hidden hover:font-semibold">
             <Logout />
           </div>
         </div>
