@@ -4,12 +4,14 @@ import {
   HiOutlineVideoCamera,
 } from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
-import React from "react";
+import React, { useContext } from "react";
 import Logout from "../../../../auth/Logout";
 import { useRecentUserInfo } from "../../../shared/hooks/useRecentUserInfo";
+import { ChatContext } from "../../../contexts/ChatContext";
 
 const MessageBoardNav = ({ setIsShow }) => {
   const { recentUserInfo: senderInfo } = useRecentUserInfo();
+  const { currentChatRoom } = useContext(ChatContext);
 
   const showSideBar = () => {
     setIsShow(true);
@@ -33,8 +35,8 @@ const MessageBoardNav = ({ setIsShow }) => {
             )}
           </div>
           <div className="flex flex-col justify-between">
-            {senderInfo ? (
-              <div className="text-sm font-bold">{senderInfo?.user?.name}</div>
+            {currentChatRoom ? (
+              <div className="text-sm font-bold">{currentChatRoom}</div>
             ) : (
               <div className="text-sm font-bold">Connect User</div>
             )}

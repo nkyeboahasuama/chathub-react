@@ -1,19 +1,17 @@
-import React from "react";
-import { BiMessageRoundedDots } from "react-icons/bi";
-import { dateInfo } from "../../../shared/functions/dateInfo";
+import React, { useContext } from "react";
 import { useRecentUserInfo } from "../../../shared/hooks/useRecentUserInfo";
+import { dateInfo } from "../../../shared/functions/dateInfo";
+import { ChatContext } from "../../../contexts/ChatContext";
 
-const Chats = () => {
+const Chat = ({ room }) => {
   const { recentUserInfo: recentChat } = useRecentUserInfo();
+  const { handleOpenChat } = useContext(ChatContext);
 
+  const handleViewChatMessages = () => {
+    handleOpenChat(room);
+  };
   return (
-    <div>
-      <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-600 font-semibold">
-        <div className="mr-1">
-          <BiMessageRoundedDots />
-        </div>
-        <div>All messages</div>
-      </div>
+    <div onClick={handleViewChatMessages}>
       {recentChat && recentChat.user && (
         <div className="flex justify-between py-3 px-2 hover:bg-white cursor-pointer items-center border-b-2 border-gray-300">
           <div className="flex items-center">
@@ -22,9 +20,10 @@ const Chats = () => {
             </div>
             <div className="flex flex-col justify-between">
               <div className="text-sm font-bold">
-                {recentChat?.user.name.length > 20
+                {/* {recentChat?.user.name.length > 20
                   ? recentChat?.user.name.slice(0, 15) + "..."
-                  : recentChat?.user.name}
+                  : recentChat?.user.name} */}
+                {room}
               </div>
               <div className="text-xs">{recentChat?.text}</div>
             </div>
@@ -45,4 +44,4 @@ const Chats = () => {
   );
 };
 
-export default Chats;
+export default Chat;

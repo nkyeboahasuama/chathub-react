@@ -4,16 +4,16 @@ import { dateInfo } from "../../../shared/functions/dateInfo";
 import DateInfo from "./Date";
 import { AuthContext } from "../../../contexts/AuthContext";
 import useSubscription from "../../../shared/hooks/useSubscription";
+import { ChatContext } from "../../../contexts/ChatContext";
 
 const Message = () => {
-  const { messages } = useSubscription();
+  const { currentChatRoom } = useContext(ChatContext);
+  const { messages } = useSubscription(currentChatRoom);
   const [filtered, setFiltered] = useState(null);
   const { user } = useContext(AuthContext);
-
   const scrollRef = useRef();
 
   const messagesGroup = {};
-
   messages.forEach((e) => {
     const messageDates = dateInfo.getDate(e);
     if (!messagesGroup[messageDates]) {
@@ -23,7 +23,7 @@ const Message = () => {
   });
 
   useEffect(() => {
-    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
     function getDayForMessages() {
       const newArray = messages.map((e) => dateInfo.getDate(e));
       const uniqueSet = new Set(newArray);
@@ -33,8 +33,12 @@ const Message = () => {
     getDayForMessages();
   }, [messages]);
 
+  if (!currentChatRoom) {
+    return <>Loading...</>;
+  }
+
   return (
-    <div>
+    <>
       {filtered?.map((date) => (
         <div>
           <div>
@@ -94,7 +98,7 @@ const Message = () => {
         </div>
       ))}{" "}
       <div ref={scrollRef}></div>
-    </div>
+    </>
   );
 };
 
