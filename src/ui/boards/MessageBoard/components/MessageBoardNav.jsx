@@ -1,25 +1,15 @@
-import logo512 from "../../images/logo512.png";
+import logo512 from "../../../shared/assets/logo512.png";
 import {
   HiOutlineDotsCircleHorizontal,
   HiOutlineVideoCamera,
 } from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
-import React, { useState, useEffect } from "react";
-import Logout from "../auth/Logout";
-import { useAuth0 } from "@auth0/auth0-react";
+import React from "react";
+import Logout from "../../../../auth/Logout";
+import { useRecentUserInfo } from "../../../shared/hooks/useRecentUserInfo";
 
 const MessageBoardNav = ({ setIsShow }) => {
-  // const { message, userId } = useContext(ChatContext);
-  const { user } = useAuth0();
-  const message = ["jay", "bay"];
-  const [senderInfo, setSenderInfo] = useState();
-
-  useEffect(() => {
-    const senderInfo = message.filter((ms) => ms.senderId !== user);
-    if (senderInfo) {
-      setSenderInfo(senderInfo[senderInfo.length - 1]?.sender);
-    }
-  }, [user]);
+  const { recentUserInfo: senderInfo } = useRecentUserInfo();
 
   const showSideBar = () => {
     setIsShow(true);
@@ -37,14 +27,14 @@ const MessageBoardNav = ({ setIsShow }) => {
           </div>
           <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mx-2">
             {senderInfo ? (
-              <img src={senderInfo.picture} alt="img" />
+              <img src={senderInfo?.user?.profilePic} alt="img" />
             ) : (
               <img src={logo512} alt="img" />
             )}
           </div>
           <div className="flex flex-col justify-between">
             {senderInfo ? (
-              <div className="text-sm font-bold">{senderInfo.name}</div>
+              <div className="text-sm font-bold">{senderInfo?.user?.name}</div>
             ) : (
               <div className="text-sm font-bold">Connect User</div>
             )}

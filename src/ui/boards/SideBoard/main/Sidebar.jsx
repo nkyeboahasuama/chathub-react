@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "./ChatsNavbar";
-import UserProfile from "./UserProfile";
-import Chats from "./Chats";
+import Navbar from "../components/ChatsNavbar";
+import UserProfile from "../components/UserProfile";
+import Chats from "../components/Chats";
 
 const Sidebar = () => {
   return (

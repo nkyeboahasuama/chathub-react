@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { db } from "../../config/firebase";
+import { db } from "../../../config/firebase";
+
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 const useSubscription = (sort) => {

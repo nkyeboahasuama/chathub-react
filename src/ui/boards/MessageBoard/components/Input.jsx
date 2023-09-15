@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { BsSend } from "react-icons/bs";
 import { IoAttachSharp } from "react-icons/io5";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useAuth0 } from "@auth0/auth0-react";
-import { db } from "../../config/firebase";
+import { db } from "../../../../config/firebase";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 const Input = () => {
   const [input, setInput] = useState("");
   const inputRef = useRef();
-  const { user } = useAuth0();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -22,7 +22,6 @@ const Input = () => {
       user: user,
     });
   };
-
   const handleInputSubmit = (event) => {
     event.preventDefault();
     if (input.length > 0) {

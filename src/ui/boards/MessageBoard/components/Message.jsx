@@ -1,27 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useContext, useEffect, useState } from "react";
 
-import useSubscription from "../hooks/useSubscription";
-import { dateInfo } from "../functions/dateInfo";
+import { dateInfo } from "../../../shared/functions/dateInfo";
 import DateInfo from "./Date";
+import { AuthContext } from "../../../contexts/AuthContext";
+import useSubscription from "../../../shared/hooks/useSubscription";
 
 const Message = () => {
-  const { user } = useAuth0();
   const { messages } = useSubscription();
   const [filtered, setFiltered] = useState(null);
-
-  // const scrollDown = useRef();
-
-  // useEffect(() => {
-  //   scrollDown.current.scrollIntoView({ behavior: "smooth" });
-  // }, [messages]);
-
-  // messages.map((e) => {
-  //   if (e.createdAt === messages[e.length].createdAt) {
-  //     console.log(e);
-  //     return e;
-  //   }
-  // });
+  const { user } = useContext(AuthContext);
 
   const messagesGroup = {};
 
@@ -33,7 +20,6 @@ const Message = () => {
     messagesGroup[messageDates].push(e);
   });
 
-  console.log(messagesGroup);
   useEffect(() => {
     function getDayForMessages() {
       const newArray = messages.map((e) => dateInfo.getDate(e));
@@ -59,7 +45,7 @@ const Message = () => {
                     <div className="bg-gray-400 w-10 h-10 rounded-full mr-1 object-fill overflow-hidden">
                       <img
                         className="w-full h-full"
-                        src={msg?.user?.picture}
+                        src={msg?.user?.profilePic}
                         alt="img"
                       />
                     </div>
@@ -82,14 +68,12 @@ const Message = () => {
                     <div className="bg-gray-400 w-10 h-10 rounded-full mr-2 overflow-hidden">
                       <img
                         className="w-full h-full"
-                        src={msg?.user?.picture}
+                        src={msg?.user?.profilePic}
                         alt="img"
                       />
                     </div>
                     <div className="flex flex-col justify-between max-w-1/2">
-                      <div className="text-sm font-bold">
-                        {msg?.user?.given_name}
-                      </div>
+                      <div className="text-sm font-bold">{msg?.user?.name}</div>
                       <div className="text-sm bg-white p-2 flex flex-col rounded-xl break-all rounded-tl-none w-fit">
                         {msg?.text}
                       </div>
