@@ -9,7 +9,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-screen flex bg-sky-500 items-center justify-center">
       <button
         className="hover:shadow-lg shadow-black hover:bg-gray-800 p-3 rounded-xl hover:-translate-y-2 bg-sky-700 font-medium text-white duration-300"
         onClick={loginUser}

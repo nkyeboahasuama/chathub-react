@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { dateInfo } from "../../../shared/functions/dateInfo";
 import DateInfo from "./Date";
@@ -9,6 +9,8 @@ const Message = () => {
   const { messages } = useSubscription();
   const [filtered, setFiltered] = useState(null);
   const { user } = useContext(AuthContext);
+
+  const scrollRef = useRef();
 
   const messagesGroup = {};
 
@@ -21,6 +23,7 @@ const Message = () => {
   });
 
   useEffect(() => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
     function getDayForMessages() {
       const newArray = messages.map((e) => dateInfo.getDate(e));
       const uniqueSet = new Set(newArray);
@@ -86,10 +89,11 @@ const Message = () => {
                   </div>
                 );
               }
-            })}
+            })}{" "}
           </div>
         </div>
-      ))}
+      ))}{" "}
+      <div ref={scrollRef}></div>
     </div>
   );
 };

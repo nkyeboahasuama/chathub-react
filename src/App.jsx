@@ -8,15 +8,7 @@ import "./index.css";
 
 function App() {
   const { user } = useContext(AuthContext);
-  return (
-    <div className="bg-sky-300 h-screen">
-      {user ? <Home /> : <Login />}
-
-      {/* <ChatContextProvider> */}
-
-      {/* </ChatContextProvider> */}
-    </div>
-  );
+  return <>{user ? <Home /> : <Login />}</>;
 }
 
 export default App;
