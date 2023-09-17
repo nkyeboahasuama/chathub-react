@@ -1,26 +1,23 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ChatContext = createContext();
 
 const ChatContextProvider = (props) => {
-  const { user } = useContext(AuthContext);
-  const [currentChatRoom, setCurrentChatRoom] = useState(null);
+  const [currentChatRoom, setCurrentChatRoom] = useState([]);
 
   useEffect(() => {
     handleOpenChat();
   }, []);
 
+  console.log(currentChatRoom);
   const handleOpenChat = (room) => {
     setCurrentChatRoom(room);
   };
 
   return (
-    user && (
-      <ChatContext.Provider value={{ handleOpenChat, currentChatRoom }}>
-        {props.children}
-      </ChatContext.Provider>
-    )
+    <ChatContext.Provider value={{ handleOpenChat, currentChatRoom }}>
+      {props.children}
+    </ChatContext.Provider>
   );
 };
 

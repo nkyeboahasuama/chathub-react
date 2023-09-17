@@ -4,11 +4,13 @@ import { IoAttachSharp } from "react-icons/io5";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../../config/firebase";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { ChatContext } from "../../../contexts/ChatContext";
 
 const Input = () => {
   const [input, setInput] = useState("");
   const inputRef = useRef();
   const { user } = useContext(AuthContext);
+  const { currentChatRoom } = useContext(ChatContext);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -20,6 +22,7 @@ const Input = () => {
       text: input,
       createdAt: serverTimestamp(),
       user: user,
+      room: currentChatRoom,
     });
   };
   const handleInputSubmit = (event) => {

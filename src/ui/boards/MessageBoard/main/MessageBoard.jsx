@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "../components/Input";
 import MessageBoardNav from "../components/MessageBoardNav";
-import Messages from "../components/MessagesContainer";
+import Messages from "../components/Messages";
 
 const MessageBoard = ({ setIsShow }) => {
   return (

@@ -9,7 +9,7 @@ const Sidebar = () => {
       <div className="flex ">
         <Navbar />
       </div>
-      <div className="bg-green-100">
+      <div className="">
         <ChatGroups />
       </div>
       <div className="bg-white h-14 w-full absolute bottom-0">

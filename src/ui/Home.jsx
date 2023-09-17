@@ -9,15 +9,13 @@ const Home = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    user && (
-      <div className="h-[100dvh] w-[100vw] flex items-center justify-center relative">
-        <div className="border-2 border-gray-300 flex  overflow-hidden w-full h-full">
-          {isShow && <ChatsModal setIsShow={setIsShow} />}
-          <Sidebar />
-          <MessageBoard setIsShow={setIsShow} />
-        </div>
+    <div className="h-[100dvh] w-[100vw] flex items-center justify-center relative">
+      <div className="border-2 border-gray-300 flex  overflow-hidden w-full h-full">
+        {isShow && <ChatsModal setIsShow={setIsShow} />}
+        <Sidebar />
+        <MessageBoard setIsShow={setIsShow} />
       </div>
-    )
+    </div>
   );
 };
 

@@ -3,14 +3,13 @@ import {
   HiOutlineDotsCircleHorizontal,
   HiOutlineVideoCamera,
 } from "react-icons/hi";
+import { BsChevronDown } from "react-icons/bs";
 import { IoCallOutline } from "react-icons/io5";
 import React, { useContext } from "react";
 import Logout from "../../../../auth/Logout";
-import { useRecentUserInfo } from "../../../shared/hooks/useRecentUserInfo";
 import { ChatContext } from "../../../contexts/ChatContext";
 
 const MessageBoardNav = ({ setIsShow }) => {
-  const { recentUserInfo: senderInfo } = useRecentUserInfo();
   const { currentChatRoom } = useContext(ChatContext);
 
   const showSideBar = () => {
@@ -22,21 +21,17 @@ const MessageBoardNav = ({ setIsShow }) => {
       <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-white border-b-2 border-gray-300">
         <div className="flex items-center">
           <div
-            className="max-sm:block hidden cursor-pointer"
+            className="max-sm:block hidden mx-2 cursor-pointer"
             onClick={showSideBar}
           >
-            @
+            <BsChevronDown />
           </div>
           <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mx-2">
-            {senderInfo ? (
-              <img src={senderInfo?.user?.profilePic} alt="img" />
-            ) : (
-              <img src={logo512} alt="img" />
-            )}
+            <img src={logo512} alt="img" />
           </div>
           <div className="flex flex-col justify-between">
             {currentChatRoom ? (
-              <div className="text-sm font-bold">{currentChatRoom}</div>
+              <div className="text-sm font-bold">{currentChatRoom.name}</div>
             ) : (
               <div className="text-sm font-bold">Connect User</div>
             )}
