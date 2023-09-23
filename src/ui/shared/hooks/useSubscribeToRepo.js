@@ -6,6 +6,8 @@ import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 const useSubscription = (repo) => {
   const [data, setData] = useState([]);
 
+  // console.log(data);
+
   useEffect(() => {
     const collectionRef = collection(db, repo);
     const docQuery = query(collectionRef, orderBy("createdAt", "asc"));
@@ -21,7 +23,7 @@ const useSubscription = (repo) => {
         setData(messagesArray);
       },
       (error) => {
-        console.error(error);
+        throw new Error(error);
       }
     );
     return () => {

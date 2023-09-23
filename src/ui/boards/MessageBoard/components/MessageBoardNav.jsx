@@ -1,19 +1,39 @@
-import logo512 from "../../../shared/assets/logo512.png";
-import {
-  HiOutlineDotsCircleHorizontal,
-  HiOutlineVideoCamera,
-} from "react-icons/hi";
+import React, { useContext, useEffect, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
+import {
+  HiOutlineVideoCamera,
+  HiOutlineDotsCircleHorizontal,
+} from "react-icons/hi";
 import { IoCallOutline } from "react-icons/io5";
-import React, { useContext } from "react";
 import Logout from "../../../../auth/Logout";
 import { ChatContext } from "../../../contexts/ChatContext";
 
+import logo512 from "../../../shared/assets/logo512.png";
+import GroupOptionsModal from "../../../modals/GroupOptionsModal";
+
 const MessageBoardNav = ({ setIsShow }) => {
-  const { currentChatRoom } = useContext(ChatContext);
+  const { currentChatRoom, setCurrentChatRoom } = useContext(ChatContext);
+  const [isOptionsModalVisible, setIsOptionsModalVisible] = useState(false);
 
   const showSideBar = () => {
     setIsShow(true);
+  };
+
+  const toggleOptionsModal = () => {
+    setIsOptionsModalVisible((prev) => !prev);
+  };
+
+  const renderOptionsModal = () => {
+    if (isOptionsModalVisible) {
+      return (
+        <GroupOptionsModal
+          currentChatRoom={currentChatRoom}
+          setCurrentChatRoom={setCurrentChatRoom}
+          setIsOptionsModalVisible={setIsOptionsModalVisible}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -31,24 +51,40 @@ const MessageBoardNav = ({ setIsShow }) => {
           </div>
           <div className="flex flex-col justify-between">
             {currentChatRoom ? (
-              <div className="text-sm font-bold">{currentChatRoom.name}</div>
+              <div className="text-sm font-bold" id="allow-edits">
+                {currentChatRoom.name}
+              </div>
             ) : (
-              <div className="text-sm font-bold">Connect User</div>
+              <div className="text-sm font-bold">Join a room</div>
             )}
-            <div className="text-xs flex items-center gap-1 ">
-              <div>Online</div>
-              <div className="bg-green-600 w-2 h-2 rounded-full"></div>
-            </div>
+            {currentChatRoom && (
+              <div className="text-xs flex items-center gap-1 w-full overflow-hidden">
+                <div>Members :</div>
+
+                {/* <div>
+                  {currentChatRoom?.members?.map(
+                    (member) => member.email.slice(0, 10) + "... "
+                  )}
+                </div> */}
+              </div>
+            )}
           </div>
         </div>
         <div className="text-lg cursor-pointer flex gap-3">
           <div className="flex gap-3 max-sm:hidden ">
             <HiOutlineVideoCamera />
             <IoCallOutline />
-            <HiOutlineDotsCircleHorizontal />
+            <HiOutlineDotsCircleHorizontal onClick={toggleOptionsModal} />
           </div>
+          {renderOptionsModal()}
           <div className="text-xs max-sm:block hidden hover:font-semibold">
-            <Logout />
+            <div className="flex items-center justify-between w-20">
+              <HiOutlineDotsCircleHorizontal
+                onClick={toggleOptionsModal}
+                style={{ fontSize: "20px" }}
+              />
+              <Logout />
+            </div>
           </div>
         </div>
       </div>
