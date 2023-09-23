@@ -1,15 +1,26 @@
-import React, { createContext } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ChatContext = createContext();
 
 const ChatContextProvider = (props) => {
-  const { isAuthenticated } = useAuth0();
+  const [currentChatRoom, setCurrentChatRoom] = useState(null);
+
+  useEffect(() => {
+    handleOpenChat();
+  }, []);
+
+  // console.log(currentChatRoom);
+
+  const handleOpenChat = (room) => {
+    setCurrentChatRoom(room);
+  };
 
   return (
-    isAuthenticated && (
-      <ChatContext.Provider>{props.children}</ChatContext.Provider>
-    )
+    <ChatContext.Provider
+      value={{ handleOpenChat, currentChatRoom, setCurrentChatRoom }}
+    >
+      {props.children}
+    </ChatContext.Provider>
   );
 };
 

@@ -3,19 +3,17 @@ import "./App.css";
 import Home from "./ui/Home";
 import Login from "./auth/Login";
 import { AuthContext } from "./ui/contexts/AuthContext";
-// import ChatContextProvider from "./contexts/ChatContext";
 import "./index.css";
+import ChatContextProvider from "./ui/contexts/ChatContext";
 
 function App() {
   const { user } = useContext(AuthContext);
   return (
-    <div className="bg-sky-300 h-screen">
-      {user ? <Home /> : <Login />}
-
-      {/* <ChatContextProvider> */}
-
-      {/* </ChatContextProvider> */}
-    </div>
+    <>
+      <ChatContextProvider>
+        <div>{user ? <Home /> : <Login />}</div>
+      </ChatContextProvider>
+    </>
   );
 }
 

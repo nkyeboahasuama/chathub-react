@@ -5,19 +5,13 @@ import ChatsModal from "./modals/ChatsModal";
 import { AuthContext } from "./contexts/AuthContext";
 
 const Home = () => {
-  const [isShow, setIsShow] = useState(false);
-  const { user } = useContext(AuthContext);
-
   return (
-    user && (
-      <div className="h-screen w-full flex items-center justify-center relative">
-        <div className="border border-white flex rounded-md overflow-hidden w-full h-full">
-          {isShow && <ChatsModal setIsShow={setIsShow} />}
-          <Sidebar />
-          <MessageBoard setIsShow={setIsShow} />
-        </div>
+    <div className="h-[100dvh] w-[100vw] flex items-center justify-center relative">
+      <div className="border-2 border-gray-300 flex  overflow-hidden w-full h-full">
+        <Sidebar />
+        <MessageBoard />
       </div>
-    )
+    </div>
   );
 };
 
