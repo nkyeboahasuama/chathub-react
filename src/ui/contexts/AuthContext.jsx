@@ -13,6 +13,7 @@ const AuthContextProvider = (props) => {
       setUser(userData);
     }
   }, []);
+  console.log(user);
 
   const handleLogin = () => {
     signInWithPopup(auth, provider)
