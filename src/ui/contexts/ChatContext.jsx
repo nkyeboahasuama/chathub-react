@@ -9,7 +9,7 @@ const ChatContextProvider = (props) => {
     handleOpenChat();
   }, []);
 
-  // console.log(currentChatRoom);
+  console.log(currentChatRoom);
 
   const handleOpenChat = (room) => {
     setCurrentChatRoom(room);

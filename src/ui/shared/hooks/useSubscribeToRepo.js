@@ -6,7 +6,7 @@ import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 const useSubscription = (repo) => {
   const [data, setData] = useState([]);
 
-  // console.log(data);
+  console.log(data);
 
   useEffect(() => {
     const collectionRef = collection(db, repo);

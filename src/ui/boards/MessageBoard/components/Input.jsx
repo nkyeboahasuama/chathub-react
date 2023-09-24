@@ -6,6 +6,7 @@ import { db } from "../../../../config/firebase";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ChatContext } from "../../../contexts/ChatContext";
 import { handleRoomMateCheck } from "../../../shared/functions/groupMembershipCheck";
+import { messageService } from "../../../../services/message.service";
 
 const Input = () => {
   const [input, setInput] = useState("");
@@ -17,23 +18,23 @@ const Input = () => {
     inputRef?.current?.focus();
   }, []);
 
-  const handleSubmit = async (input) => {
-    const messagesRef = collection(db, "messages");
-    await addDoc(messagesRef, {
-      text: input,
-      createdAt: serverTimestamp(),
-      user: user,
-      room: currentChatRoom,
-    });
-  };
+  // const handleSubmit = async (input) => {
+  //   // const messagesRef = collection(db, "messages");
+  //   // await addDoc(messagesRef, {
+  //   //   text: input,
+  //   //   createdAt: serverTimestamp(),
+  //   //   user: user,
+  //   //   room: currentChatRoom,
+  //   // });
+  // };
   const handleInputSubmit = (event) => {
     event.preventDefault();
     if (input.length > 0) {
-      handleSubmit(input);
+      return messageService.sendMessage(input, user, currentChatRoom.id);
     }
     setInput("");
   };
-
+  // console.log(currentChatRoom.id);
   return (
     <div>
       <form

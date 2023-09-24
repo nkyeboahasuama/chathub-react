@@ -18,7 +18,7 @@ export class BaseRepository {
   }
 
   addDoc = async (data) => {
-    const createdAt = new Date().toUTCString();
+    const createdAt = new Date();
     return await addDoc(this.collection, { ...data, createdAt }); //cast to avoid linting error
   };
 

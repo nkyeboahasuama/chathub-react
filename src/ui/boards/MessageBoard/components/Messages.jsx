@@ -33,6 +33,8 @@ const Messages = () => {
     return <DisplayCard message={"You are not a roommate"} />;
   }
 
+  console.log(messages);
+
   return (
     <>
       <div className="flex flex-col overflow-y-scroll">

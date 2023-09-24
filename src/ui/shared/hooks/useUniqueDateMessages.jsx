@@ -12,7 +12,7 @@ export const useUniqueDateMessages = () => {
     const roomMessagesFnc = () => {
       if (currentChatRoom) {
         const msg = messages.filter(
-          (message) => message.room.id === String(currentChatRoom.id)
+          (message) => message.roomId === String(currentChatRoom.id)
         );
         setRoomMessages(msg);
       } else {
