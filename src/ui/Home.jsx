@@ -1,8 +1,6 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import Sidebar from "./boards/SideBoard/main/Sidebar";
 import MessageBoard from "./boards/MessageBoard/main/MessageBoard";
-import ChatsModal from "./modals/ChatsModal";
-import { AuthContext } from "./contexts/AuthContext";
 
 const Home = () => {
   return (

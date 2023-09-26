@@ -8,18 +8,16 @@ export class RoomUseCases {
   addNewRoom(name, creator) {
     const createdAt = new Date();
     const newRoom = new RoomEntity(name, createdAt, creator);
-    console.log("Adding room");
-    // const room = this.rommRepository.addDoc(newRoom);
-    // return room;
+    const room = this.rommRepository.addDoc(newRoom);
+    return room;
   }
 
   editRoomName(id, editRoom) {
-    console.log("Edit room");
-    // return this.rommRepository.editDocById(id, { name: editRoom.name });
+    return this.rommRepository.editDocById(id, { name: editRoom.name });
   }
 
   deleteRoom(roomId) {
-    console.log("Delete room");
+    // This should delete the messages in the particular room
     return this.rommRepository.deleteDocById(roomId);
   }
 
@@ -33,14 +31,12 @@ export class RoomUseCases {
         if (alreadyAMember.length) {
           throw new Error("Already a member");
         }
-        console.log("Joining room");
+        const members = [...room.members, newMember];
+        return this.rommRepository.editDocById(room.id, { members: members });
+      } else {
+        const members = [...room.members, newMember];
+        return this.rommRepository.editDocById(room.id, { members: members });
       }
-      //   const members = [...room.members, newMember];
-      //   return this.rommRepository.editDocById(room.id, { members: members });
-      // } else {
-      //   const members = [...room.members, newMember];
-      //   return this.rommRepository.editDocById(room.id, { members: members });
-      // }
     }
   }
 
@@ -51,10 +47,9 @@ export class RoomUseCases {
         const newRoomMembers = room.members.filter(
           (member) => member.email !== newMember.email
         );
-        console.log("Leaving room");
-        // return this.rommRepository.editDocById(room.id, {
-        //   members: newRoomMembers,
-        // });
+        return this.rommRepository.editDocById(room.id, {
+          members: newRoomMembers,
+        });
       }
     }
   }
