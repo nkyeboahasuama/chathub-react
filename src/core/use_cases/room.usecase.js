@@ -17,6 +17,7 @@ export class RoomUseCases {
   }
 
   deleteRoom(roomId) {
+    // This should delete the messages in the particular room
     return this.rommRepository.deleteDocById(roomId);
   }
 

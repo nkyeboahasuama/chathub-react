@@ -5,32 +5,47 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { ChatContext } from "../../../contexts/ChatContext";
 
 import DateInfo from "./Date";
-import useSubscription from "../../../shared/hooks/useSubscribeToRepo";
 import DisplayCard from "./DisplayCard";
 import { handleRoomMateCheck } from "../../../shared/functions/groupMembershipCheck";
 import { useUniqueDateMessages } from "../../../shared/hooks/useUniqueDateMessages";
 
 const Messages = () => {
   const { currentChatRoom } = useContext(ChatContext);
-  const { data: messages } = useSubscription("messages");
   const { user } = useContext(AuthContext);
   const scrollRef = useRef();
   const { uniqueDates, roomMessages, messagesGroup } = useUniqueDateMessages();
 
   useEffect(() => {
     scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [roomMessages]);
 
   if (!currentChatRoom) {
-    return <DisplayCard message={"Select room for messages"} />;
+    return (
+      <>
+        {" "}
+        <DisplayCard message={"Select room for messages"} />
+      </>
+    );
   }
 
   if (handleRoomMateCheck(currentChatRoom, user)) {
     if (currentChatRoom && roomMessages.length < 1) {
-      return <DisplayCard message={"Start a conversation"} />;
+      return (
+        <>
+          <DisplayCard message={"Start a conversation"} />
+        </>
+      );
     }
   } else {
-    return <DisplayCard message={"You are not a roommate"} />;
+    const members = currentChatRoom.members.map((member) => member.email);
+    console.log(members.includes(user.email));
+    if (!members.includes(user.email)) {
+      return (
+        <>
+          <DisplayCard message={"You are not a roommate"} />
+        </>
+      );
+    }
   }
 
   return (

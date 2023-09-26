@@ -1,18 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import { roomService } from "../../services/room.service";
-import { ChatContext } from "../contexts/ChatContext";
+import { messageService } from "../../services/message.service";
 
 const GroupOptionsModal = ({
   currentChatRoom,
   setCurrentChatRoom,
-  setIsOptionsModalVisible,
+  roomMessages,
 }) => {
-  // const {setCurrentChatRoom} = useContext(ChatContext)
-
   const handleDeleteRoom = async () => {
     try {
       setCurrentChatRoom(null);
-      await roomService.deleteRoom(currentChatRoom.id);
+      if (roomMessages) {
+        roomMessages.map((msg) => messageService.deleteMessage(msg.id));
+        await roomService.deleteRoom(currentChatRoom.id);
+      } else {
+        await roomService.deleteRoom(currentChatRoom.id);
+      }
     } catch (error) {
       console.error(error);
     }

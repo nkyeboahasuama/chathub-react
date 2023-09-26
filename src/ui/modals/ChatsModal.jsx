@@ -1,13 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import NavBar from "../boards/SideBoard/components/ChatsNavbar";
 import { BiMessageRoundedDots } from "react-icons/bi";
 
 import ModalChatRooms from "./ModalChatRooms";
-import useSubscription from "../shared/hooks/useSubscribeToRepo";
 import NewGroup from "../boards/SideBoard/components/NewGroup";
+import useSubscription from "../shared/hooks/useSubscribeToRepo";
+import { ChatContext } from "../contexts/ChatContext";
 
 const ChatsModal = ({ setIsShow }) => {
   const { data: rooms } = useSubscription("rooms");
+  const { currentChatRoom } = useContext(ChatContext);
 
   const closeChatsModal = () => {
     setIsShow(false);
@@ -33,7 +35,12 @@ const ChatsModal = ({ setIsShow }) => {
         </div>
         {rooms ? (
           rooms.map((room) => (
-            <ModalChatRooms setIsShow={setIsShow} room={room} key={room.id} />
+            <ModalChatRooms
+              setIsShow={setIsShow}
+              room={room}
+              key={room.id}
+              currentChatRoom={currentChatRoom}
+            />
           ))
         ) : (
           <div>Loading...</div>

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BiMessageRoundedDots } from "react-icons/bi";
 import Chat from "./Chat";
 import useSubscription from "../../../shared/hooks/useSubscribeToRepo";
 import NewGroup from "./NewGroup";
+import { ChatContext } from "../../../contexts/ChatContext";
 
 const ChatGroups = ({ setIsShow }) => {
   const { data: rooms } = useSubscription("rooms");
+  const { currentChatRoom } = useContext(ChatContext);
 
   return (
     <div>
@@ -14,10 +16,17 @@ const ChatGroups = ({ setIsShow }) => {
           <BiMessageRoundedDots />
         </div>
         <div>All messages</div>
+        <div>---</div>
+        <div>{currentChatRoom?.name}</div>
       </div>
       {rooms ? (
         rooms.map((room) => (
-          <Chat setIsShow={setIsShow} room={room} key={room.id} />
+          <Chat
+            currentChatRoom={currentChatRoom}
+            setIsShow={setIsShow}
+            room={room}
+            key={room.id}
+          />
         ))
       ) : (
         <div>Loading...</div>
