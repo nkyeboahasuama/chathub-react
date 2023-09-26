@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { BsSend } from "react-icons/bs";
 import { IoAttachSharp } from "react-icons/io5";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../../../../config/firebase";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ChatContext } from "../../../contexts/ChatContext";
 import { handleRoomMateCheck } from "../../../shared/functions/groupMembershipCheck";
@@ -18,23 +16,15 @@ const Input = () => {
     inputRef?.current?.focus();
   }, []);
 
-  // const handleSubmit = async (input) => {
-  //   // const messagesRef = collection(db, "messages");
-  //   // await addDoc(messagesRef, {
-  //   //   text: input,
-  //   //   createdAt: serverTimestamp(),
-  //   //   user: user,
-  //   //   room: currentChatRoom,
-  //   // });
-  // };
   const handleInputSubmit = (event) => {
     event.preventDefault();
     if (input.length > 0) {
+      setInput("");
+
       return messageService.sendMessage(input, user, currentChatRoom.id);
     }
     setInput("");
   };
-  // console.log(currentChatRoom.id);
   return (
     <div>
       <form
