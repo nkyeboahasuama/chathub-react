@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { ChatContext } from "../contexts/ChatContext";
 import { roomService } from "../../services/room.service";
@@ -7,7 +7,7 @@ import { handleRoomMateCheck } from "../shared/functions/groupMembershipCheck";
 const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
   const { handleOpenChat, setCurrentChatRoom } = useContext(ChatContext);
   const { user } = useContext(AuthContext);
-  const [joining, setJoining] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleViewChatMessages = () => {
     handleOpenChat(room);
@@ -16,22 +16,19 @@ const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
 
   const joinNewRoom = async () => {
     try {
-      setJoining(true);
+      setLoading(true);
       await roomService.joinRoom(room, user);
-      // setIsShow(false);
-      setJoining(false);
       setCurrentChatRoom({ ...room, members: [...room.members, user] });
+      setLoading(false);
     } catch (error) {
-      // setJoining(true);
       console.error(error);
     }
   };
 
   const leaveRoom = async () => {
     try {
-      setCurrentChatRoom(null);
-      // setIsShow(false);
       await roomService.leaveRoom(room, user);
+      setCurrentChatRoom(null);
     } catch (error) {
       console.error(error);
     }
@@ -63,11 +60,11 @@ const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
         {handleRoomMateCheck(room, user) ? (
           <div
             className={`${
-              joining ? "bg-yellow-600" : "bg-red-600"
+              loading ? "bg-yellow-600" : "bg-red-600"
             } text-white font-medium w-10 h-fit p-1 cursor-pointer text-xs flex items-center justify-center`}
             onClick={leaveRoom}
           >
-            {joining ? "Wait" : "Leave"}
+            {loading ? "Wait" : "Leave"}
           </div>
         ) : (
           <div

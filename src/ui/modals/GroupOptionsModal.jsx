@@ -12,10 +12,8 @@ const GroupOptionsModal = ({
       setCurrentChatRoom(null);
       if (roomMessages) {
         roomMessages.map((msg) => messageService.deleteMessage(msg.id));
-        await roomService.deleteRoom(currentChatRoom.id);
-      } else {
-        await roomService.deleteRoom(currentChatRoom.id);
       }
+      await roomService.deleteRoom(currentChatRoom.id);
     } catch (error) {
       console.error(error);
     }

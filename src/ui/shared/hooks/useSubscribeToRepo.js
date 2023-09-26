@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { db } from "../../../config/firebase";
 
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import { ChatContext } from "../../contexts/ChatContext";
 
 const useSubscription = (repo) => {
   const [data, setData] = useState([]);
+  const { setChatRooms } = useContext(ChatContext);
 
   useEffect(() => {
     const collectionRef = collection(db, repo);
@@ -17,7 +19,9 @@ const useSubscription = (repo) => {
         snapshot.forEach((doc) => {
           messagesArray.push({ ...doc.data(), id: doc.id });
         });
-        console.log("e");
+        if (repo === "rooms") {
+          setChatRooms(messagesArray);
+        }
 
         setData(messagesArray);
       },

@@ -9,33 +9,19 @@ import { ChatContext } from "../contexts/ChatContext";
 import { MdKeyboardArrowUp } from "react-icons/md";
 
 const ChatsModal = ({ setIsShow }) => {
-  const { data: rooms } = useSubscription("rooms");
-  const { currentChatRoom } = useContext(ChatContext);
+  const { currentChatRoom, chatRooms } = useContext(ChatContext);
 
-  const closeChatsModal = () => {
-    setIsShow(false);
-  };
   return (
     <div className="bg-white h-fit w-full absolute top-0 left-0 z-10 opacity-95">
-      {/* <div className="flex justify-end bg-zinc-900">
-        <div
-          className="bg-red-600 text-white p-1 m-2 cursor-pointer"
-          onClick={closeChatsModal}
-        >
-          Close
-        </div>
-      </div> */}
       <NavBar />
-
-      {/* <div> */}
       <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-600 font-semibold">
         <div className="mr-1">
           <BiMessageRoundedDots />
         </div>
         <div>All rooms</div>
       </div>
-      {rooms ? (
-        rooms.map((room) => (
+      {chatRooms ? (
+        chatRooms.map((room) => (
           <ModalChatRooms
             setIsShow={setIsShow}
             room={room}
@@ -50,17 +36,17 @@ const ChatsModal = ({ setIsShow }) => {
         <div className="w-full">
           <NewGroup />
         </div>
-        <MdKeyboardArrowUp
-          onClick={closeChatsModal}
-          style={{
-            fontSize: "30px",
-            margin: "10px 0px 0px 0px",
-            cursor: "pointer",
-          }}
-        />
+        <div className="bg-slate-800 h-8 w-8 text-white flex justify-center items-center mt-3 mb-1 rounded-full">
+          <MdKeyboardArrowUp
+            onClick={() => setIsShow(false)}
+            style={{
+              fontSize: "30px",
+              cursor: "pointer",
+            }}
+          />
+        </div>
       </div>
     </div>
-    // </div>
   );
 };
 
