@@ -32,7 +32,7 @@ const useSubscription = (repo) => {
     return () => {
       unsubscribe();
     };
-  }, [repo]);
+  }, [repo, setChatRooms]);
 
   return { data };
 };

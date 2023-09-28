@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { ChatContext } from "../contexts/ChatContext";
 import { roomService } from "../../services/room.service";
 import { handleRoomMateCheck } from "../shared/functions/groupMembershipCheck";
 
-const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
+const ChatRoomModal = ({ room, setIsShow, currentChatRoom }) => {
   const { handleOpenChat, setCurrentChatRoom } = useContext(ChatContext);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
@@ -36,9 +36,9 @@ const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
 
   return (
     <div
-      className={`flex justify-between py-3 px-2   ${
+      className={`flex justify-between py-3 px-2  ${
         currentChatRoom?.id === room?.id
-          ? "bg-green-300 "
+          ? "bg-green-500 "
           : "bg-green-200 hover:bg-green-100"
       } cursor-pointer items-center border-b-2 border-gray-300`}
     >
@@ -79,4 +79,4 @@ const ModalChatRooms = ({ room, setIsShow, currentChatRoom }) => {
   );
 };
 
-export default ModalChatRooms;
+export default ChatRoomModal;

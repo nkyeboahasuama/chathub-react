@@ -39,9 +39,9 @@ export class BaseRepository {
   };
 
   editDocById = async (id, data) => {
+    console.log(id, data);
     const docRef = this.createDocRef(id);
-    const res = await updateDoc(docRef, data);
-    return res;
+    return await updateDoc(docRef, data);
   };
 
   editDocs = async () => {};

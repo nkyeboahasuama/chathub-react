@@ -36,21 +36,19 @@ const Messages = () => {
         </>
       );
     }
-  } else {
-    const members = currentChatRoom.members.map((member) => member.email);
-    console.log(members.includes(user.email));
-    if (!members.includes(user.email)) {
-      return (
-        <>
-          <DisplayCard message={"You are not a roommate"} />
-        </>
-      );
-    }
+  }
+  const members = currentChatRoom.members.map((member) => member.email);
+  if (!members.includes(user.email)) {
+    return (
+      <>
+        <DisplayCard message={"You are not a roommate"} />
+      </>
+    );
   }
 
   return (
     <>
-      <div className="flex flex-col overflow-y-scroll">
+      <div className="flex flex-col overflow-y-auto">
         <div className="flex flex-col gap-5 max-w-full">
           {uniqueDates.map((date) => (
             <div key={date}>
