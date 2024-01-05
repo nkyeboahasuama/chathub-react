@@ -10,28 +10,32 @@ const ChatGroups = ({ setIsShow }) => {
   const { currentChatRoom } = useContext(ChatContext);
 
   return (
-    <div>
+    <div className=" h-full">
       <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-600 font-semibold">
         <div className="mr-1">
           <BiMessageRoundedDots />
         </div>
         <div>All rooms</div>
       </div>
-      {rooms.length > 1 ? (
-        rooms.map((room) => (
-          <Chat
-            currentChatRoom={currentChatRoom}
-            setIsShow={setIsShow}
-            room={room}
-            key={room.id}
-          />
-        ))
-      ) : (
-        <div className="text-sm font-semibold text-center py-2">
-          Loading rooms...
-        </div>
-      )}
-      <NewGroup />
+      <div>
+        <NewGroup />
+      </div>
+      <div className="overflow-auto h-3/5">
+        {rooms.length > 1 ? (
+          rooms.map((room) => (
+            <Chat
+              currentChatRoom={currentChatRoom}
+              setIsShow={setIsShow}
+              room={room}
+              key={room.id}
+            />
+          ))
+        ) : (
+          <div className="text-sm font-semibold text-center py-2">
+            Loading rooms...
+          </div>
+        )}
+      </div>
     </div>
   );
 };

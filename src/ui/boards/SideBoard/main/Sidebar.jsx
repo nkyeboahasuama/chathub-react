@@ -5,7 +5,7 @@ import ChatGroups from "../components/ChatGroups";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white border-r-2 border-gray-400 flex-1 relative max-sm:hidden h-[100vh]">
+    <div className="bg-white border-r-2 border-gray-400 flex-1 relative max-sm:hidden h-[100dvh]">
       <div className="flex ">
         <Navbar />
       </div>

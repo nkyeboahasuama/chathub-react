@@ -26,8 +26,10 @@ const Chat = ({ room, currentChatRoom }) => {
 
   const leaveRoom = async () => {
     try {
-      setCurrentChatRoom(null);
+      setLoading(true);
       await roomService.leaveRoom(room, user);
+      setLoading(false);
+      setCurrentChatRoom(null);
     } catch (error) {
       console.error(error);
     }

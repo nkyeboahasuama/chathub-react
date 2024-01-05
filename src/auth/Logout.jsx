@@ -9,7 +9,7 @@ const Logout = () => {
   };
   return (
     user && (
-      <div>
+      <div className="font-bold text-md ">
         <button onClick={logoutUser}>Logout</button>
       </div>
     )

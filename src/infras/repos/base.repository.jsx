@@ -18,8 +18,7 @@ export class BaseRepository {
   }
 
   addDoc = async (data) => {
-    // const createdAt = new Date();
-    return await addDoc(this.collection, { ...data }); //cast to avoid linting error
+    return await addDoc(this.collection, { ...data });
   };
 
   getDoc = async (id) => {
@@ -39,9 +38,9 @@ export class BaseRepository {
   };
 
   editDocById = async (id, data) => {
+    console.log(id, data);
     const docRef = this.createDocRef(id);
-    const res = await updateDoc(docRef, data);
-    return res;
+    return await updateDoc(docRef, data);
   };
 
   editDocs = async () => {};
@@ -54,24 +53,4 @@ export class BaseRepository {
   createDocRef = (id) => {
     return doc(this.collection, id);
   };
-
-  // getUpdatedDocs = ()=>{
-  //   const collectionRef = collection(db, repo);
-  //     const docQuery = query(collectionRef, orderBy("createdAt", "asc"));
-
-  //     const unsubscribe = onSnapshot(
-  //       docQuery,
-  //       (snapshot) => {
-  //         const messagesArray = [];
-  //         snapshot.forEach((doc) => {
-  //           messagesArray.push({ ...doc.data(), id: doc.id });
-  //         });
-
-  //         setData(messagesArray);
-  //       },
-  //       (error) => {
-  //         throw new Error(error);
-  //       }
-  //     );
-  // }
 }

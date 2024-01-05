@@ -12,12 +12,11 @@ export class RoomUseCases {
     return room;
   }
 
-  editRoomName(id, editRoom) {
-    return this.rommRepository.editDocById(id, { name: editRoom.name });
+  editRoomName(id, newRoomName) {
+    return this.rommRepository.editDocById(id, { name: newRoomName });
   }
 
   deleteRoom(roomId) {
-    // This should delete the messages in the particular room
     return this.rommRepository.deleteDocById(roomId);
   }
 
