@@ -18,8 +18,7 @@ export class BaseRepository {
   }
 
   addDoc = async (data) => {
-    const createdAt = new Date().toUTCString();
-    return await addDoc(this.collection, { ...data, createdAt }); //cast to avoid linting error
+    return await addDoc(this.collection, { ...data });
   };
 
   getDoc = async (id) => {
@@ -39,10 +38,9 @@ export class BaseRepository {
   };
 
   editDocById = async (id, data) => {
+    console.log(id, data);
     const docRef = this.createDocRef(id);
-    const res = await updateDoc(docRef, data);
-    console.log(res);
-    return res;
+    return await updateDoc(docRef, data);
   };
 
   editDocs = async () => {};

@@ -1,44 +1,54 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import NavBar from "../boards/SideBoard/components/ChatsNavbar";
 import { BiMessageRoundedDots } from "react-icons/bi";
 
-import ModalChatRooms from "./ModalChatRooms";
-import useSubscription from "../shared/hooks/useSubscribeToRepo";
+import ChatRoomModal from "./ChatRoomModal";
 import NewGroup from "../boards/SideBoard/components/NewGroup";
+import { ChatContext } from "../contexts/ChatContext";
+import { MdKeyboardArrowUp } from "react-icons/md";
 
 const ChatsModal = ({ setIsShow }) => {
-  const { data: rooms } = useSubscription("rooms");
+  const { currentChatRoom, chatRooms } = useContext(ChatContext);
 
-  const closeChatsModal = () => {
-    setIsShow(false);
-  };
   return (
-    <div className="bg-white max-h-fit w-full absolute top-0 left-0 z-10 opacity-95">
-      <div className="flex justify-end bg-zinc-900">
-        <div
-          className="bg-red-600 text-white p-1 m-2 cursor-pointer"
-          onClick={closeChatsModal}
-        >
-          Close
-        </div>
-      </div>
-      <NavBar />
-
-      <div>
-        <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-600 font-semibold">
+    <div className="bg-white h-full w-full absolute top-0 left-0 z-10 opacity-95 flex flex-col justify-between">
+      <div className="h-4/5 max-h-full">
+        <NavBar />
+        <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-blue font-semibold">
           <div className="mr-1">
             <BiMessageRoundedDots />
           </div>
-          <div>All messages</div>
+          <div>All rooms</div>
         </div>
-        {rooms ? (
-          rooms.map((room) => (
-            <ModalChatRooms setIsShow={setIsShow} room={room} key={room.id} />
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
-        <NewGroup />{" "}
+        <div className="w-full">
+          <NewGroup />
+        </div>
+        <div className=" overflow-auto h-4/5">
+          {chatRooms ? (
+            chatRooms.map((room) => (
+              <ChatRoomModal
+                setIsShow={setIsShow}
+                room={room}
+                key={room.id}
+                currentChatRoom={currentChatRoom}
+              />
+            ))
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center">
+        <div className="text-white h-8 w-8 bg-slate-800 flex justify-center items-center mt-3 rounded-full">
+          <MdKeyboardArrowUp
+            onClick={() => setIsShow(false)}
+            style={{
+              fontSize: "30px",
+              cursor: "pointer",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

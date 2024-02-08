@@ -12,8 +12,8 @@ export class RoomUseCases {
     return room;
   }
 
-  editRoomName(id, editRoom) {
-    return this.rommRepository.editDocById(id, { name: editRoom.name });
+  editRoomName(id, newRoomName) {
+    return this.rommRepository.editDocById(id, { name: newRoomName });
   }
 
   deleteRoom(roomId) {

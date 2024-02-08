@@ -19,18 +19,20 @@ const NewGroup = () => {
   return (
     <div>
       <form
-        className="w-full h-20  flex flex-col items-center justify-center"
+        className="w-full flex  items-center justify-center"
         onSubmit={handleAddNewRoom}
       >
         <input
-          className="border-2 w-4/5 "
+          className="border-2 w-3/5 px-2 py-1 font-semibold rounded-xl m-2"
           placeholder="New room"
           type="text"
           ref={inputRef}
         />
-        <button onClick={handleAddNewRoom}>
-          <AiOutlinePlusCircle style={{ fontSize: "30px" }} />
-        </button>
+        <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center">
+          <button onClick={handleAddNewRoom}>
+            <AiOutlinePlusCircle style={{ fontSize: "25px", color: "white" }} />
+          </button>
+        </div>
       </form>
     </div>
   );

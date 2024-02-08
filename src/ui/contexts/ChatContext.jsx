@@ -4,12 +4,11 @@ export const ChatContext = createContext();
 
 const ChatContextProvider = (props) => {
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
+  const [chatRooms, setChatRooms] = useState(null);
 
   useEffect(() => {
     handleOpenChat();
   }, []);
-
-  // console.log(currentChatRoom);
 
   const handleOpenChat = (room) => {
     setCurrentChatRoom(room);
@@ -17,7 +16,13 @@ const ChatContextProvider = (props) => {
 
   return (
     <ChatContext.Provider
-      value={{ handleOpenChat, currentChatRoom, setCurrentChatRoom }}
+      value={{
+        handleOpenChat,
+        currentChatRoom,
+        setCurrentChatRoom,
+        setChatRooms,
+        chatRooms,
+      }}
     >
       {props.children}
     </ChatContext.Provider>
