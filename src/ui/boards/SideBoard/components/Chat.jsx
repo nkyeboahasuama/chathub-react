@@ -37,11 +37,11 @@ const Chat = ({ room, currentChatRoom }) => {
 
   return (
     <div
-      className={`flex justify-between py-3 px-2   ${
+      className={`flex justify-between py-3 px-2 text-gray-300   ${
         currentChatRoom?.id === room?.id
-          ? "bg-green-300 "
-          : "bg-green-200 hover:bg-green-100"
-      } cursor-pointer items-center border-b-2 border-gray-300`}
+          ? "bg-neutral-950 "
+          : "bg-neutral-800 hover:bg-neutral-900"
+      } cursor-pointer items-center`}
     >
       <div onClick={handleViewChatMessages} className="w-4/5">
         <div className="flex items-center">

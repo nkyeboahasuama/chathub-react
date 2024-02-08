@@ -57,7 +57,8 @@ const MessageBoardNav = ({ setIsShow, setShowRoomDetails }) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-white border-b-2 border-gray-300">
+      <div className="flex justify-between items-center px-3 w-full h-16 p-2 bg-neutral-800
+        text-gray-400">
         <div className="flex items-center">
           <div className="bg-gray-400 w-10 h-10 rounded-full overflow-hidden mx-2">
             <img
@@ -68,7 +69,7 @@ const MessageBoardNav = ({ setIsShow, setShowRoomDetails }) => {
             />
           </div>
           <div className="flex flex-col justify-between h-full ">
-            <div className="text-md font-bold flex items-end " id="allow-edits">
+            <div className="text-md font-bold flex items-end text-white" id="allow-edits">
               {currentChatRoom ? (
                 <div>{currentChatRoom.name}</div>
               ) : (

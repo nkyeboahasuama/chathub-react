@@ -11,7 +11,7 @@ const ChatGroups = ({ setIsShow }) => {
 
   return (
     <div className=" h-full">
-      <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-600 font-semibold">
+      <div className="text-xs p-6 flex text-sky-600 font-semibold">
         <div className="mr-1">
           <BiMessageRoundedDots />
         </div>
