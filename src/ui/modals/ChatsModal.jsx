@@ -11,7 +11,7 @@ const ChatsModal = ({ setIsShow }) => {
   const { currentChatRoom, chatRooms } = useContext(ChatContext);
 
   return (
-    <div className="bg-white h-full w-full absolute top-0 left-0 z-10 opacity-95 flex flex-col justify-between">
+    <div className="bg-neutral-900 h-full w-full absolute top-0 left-0 z-10 opacity-95 flex flex-col justify-between">
       <div className="h-4/5 max-h-full">
         <NavBar />
         <div className="text-xs p-6 flex border-b-2 border-gray-300 text-sky-blue font-semibold">

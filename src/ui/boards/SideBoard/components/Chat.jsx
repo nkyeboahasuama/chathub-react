@@ -39,8 +39,8 @@ const Chat = ({ room, currentChatRoom }) => {
     <div
       className={`flex justify-between py-3 px-2 text-gray-300   ${
         currentChatRoom?.id === room?.id
-          ? "bg-neutral-950 "
-          : "bg-neutral-800 hover:bg-neutral-900"
+          ? "bg-neutral-800 "
+          : "bg-neutral-700 hover:bg-neutral-900"
       } cursor-pointer items-center`}
     >
       <div onClick={handleViewChatMessages} className="w-4/5">

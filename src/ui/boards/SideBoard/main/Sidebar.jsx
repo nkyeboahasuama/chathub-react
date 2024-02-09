@@ -5,14 +5,14 @@ import ChatGroups from "../components/ChatGroups";
 
 const Sidebar = () => {
   return (
-    <div className="bg-neutral-900 flex-1 relative max-sm:hidden h-full rounded-se-lg">
-      <div className="flex ">
+    <div className="bg-neutral-900 relative max-sm:hidden rounded-se-lg flex flex-col">
+      <div className="flex">
         <Navbar />
       </div>
-      <div className="">
+      <div className="h-[calc(100%-7.5rem)]">
         <ChatGroups />
       </div>
-      <div className="bg-white h-14 w-full absolute bottom-0">
+      <div className="h-14 w-full">
         <UserProfile />
       </div>
     </div>

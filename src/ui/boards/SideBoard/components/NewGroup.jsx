@@ -19,11 +19,11 @@ const NewGroup = () => {
   return (
     <div>
       <form
-        className="w-full flex  items-center justify-center"
+        className="w-full flex items-center justify-center"
         onSubmit={handleAddNewRoom}
       >
         <input
-          className="border-2 w-3/5 h-7 px-2 py-1 font-semibold rounded-xl m-2 mb-4"
+          className="border-2 w-3/5 h-7 px-2 py-1 font-semibold m-5"
           placeholder="New room"
           type="text"
           ref={inputRef}
