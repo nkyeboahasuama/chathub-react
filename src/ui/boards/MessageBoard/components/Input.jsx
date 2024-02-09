@@ -31,14 +31,14 @@ const Input = () => {
   return (
     <div>
       <form
-        className="bg-white w-full h-14 border-t-2 border-gray-200 flex items-center justify-center gap-3 cursor-pointer"
+        className="bg-neutral-800 w-full h-14 flex items-center justify-center gap-3 cursor-pointer"
         onSubmit={handleInputSubmit}
       >
         {currentChatRoom && handleRoomMateCheck(currentChatRoom, user) && (
           <>
-            <IoAttachSharp className="text-2xl hover:text-3xl  w-1/12 " />
+            <IoAttachSharp className="text-2xl hover:text-3xl w-1/12 text-gray-300 " />
             <input
-              className="h-8 text-sm w-9/12 p-2 placeholder:text-black rounded-xl bg-gray-200 outline-none"
+              className="h-8 text-sm w-9/12 p-2 placeholder:text-black rounded-xl bg-neutral-700 text-gray-200 outline-none"
               placeholder="Text here..."
               type="text"
               name="message"
@@ -48,7 +48,7 @@ const Input = () => {
               ref={inputRef}
             />
             <div className="w-1/12 hover:text-2xl" onClick={handleInputSubmit}>
-              <BsSend />
+              <BsSend className=" text-gray-300"/>
             </div>
           </>
         )}

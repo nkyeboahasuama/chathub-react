@@ -11,7 +11,7 @@ const MessageBoard = () => {
   const [showRoomDetails, setShowRoomDetails] = useState(false);
 
   return (
-    <div className="flex h-[100dvh] relative justify-between flex-col flex-2 bg-emerald-300 max-sm:w-full">
+    <div className="flex relative justify-between flex-col flex-2 bg-zinc-950 max-sm:w-full">
       {isShow && <ChatsModal setIsShow={setIsShow} />}
       {showRoomDetails && (
         <RoomDetailModal setShowRoomDetails={setShowRoomDetails} />
