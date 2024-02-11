@@ -57,11 +57,11 @@ const Chat = ({ room, currentChatRoom }) => {
           <div className="text-xs"></div>
         </div>
       </div>
-      <div className="w-10">
+      <div className="w-10 flex justify-center">
         {handleRoomMateCheck(room, user) ? (
           <div
             className={`${
-              loading ? "bg-yellow-600" : "bg-red-600"
+              loading ? "bg-yellow-600" : "bg-red-900"
             } text-white font-medium w-10 h-fit p-1 cursor-pointer text-xs flex items-center justify-center`}
             onClick={leaveRoom}
           >
@@ -69,7 +69,7 @@ const Chat = ({ room, currentChatRoom }) => {
           </div>
         ) : (
           <div
-            className="bg-green-900 text-white font-medium w-fit h-fit p-1 cursor-pointer text-xs flex items-center justify-center"
+            className="bg-sky-800 text-white font-medium w-10 h-fit p-1 cursor-pointer text-xs flex items-center justify-center"
             onClick={joinNewRoom}
           >
             Join

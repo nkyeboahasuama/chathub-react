@@ -28,7 +28,7 @@ const NewGroup = () => {
           type="text"
           ref={inputRef}
         />
-        <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center hover:bg-sky-900 cursor-pointer">
           <button onClick={handleAddNewRoom}>
             <AiOutlinePlusCircle style={{ fontSize: "25px", color: "white" }} />
           </button>
